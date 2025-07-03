@@ -38,17 +38,18 @@ io.on('connection', (socket) => {
     io.emit("update-users", connectedUsers);
   });
 
-  socket.on('private_message', ({ senderId, receiverId, message }) => {
-    console.log("Message Recive" , senderId , receiverId , message)
-    // const receiverSocketId = users[receiverId];
-    // if (receiverSocketId) {
-    //   io.to(receiverSocketId).emit('private_message', {
-    //     senderId,
-    //     message,
-    //     seen: false,
-    //     timestamp: Date.now(),
-    //   });
-    // }
+  socket.on('private_message', ({ from, to, message }) => {
+    console.log("Message Recive" , from , to , message)
+
+    if (to) {
+      io.to(to).emit('private_message', {
+        to,
+        from,
+        message,
+        timestamp: Date.now(),
+      });
+      console.log("Message Send to private user ")
+    }
   });
 
   socket.on('message_seen', ({ senderId }) => {
