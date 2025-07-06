@@ -9,7 +9,7 @@ import { Server } from 'socket.io';
 
 import AuthRoute from "../routes/AuthRoute.js"
 import ChatRoute from "../routes/ChatRoute.js"
-
+import GenAI from "../routes/GenAIRoutes.js"
 
 dotenv.config()
 
@@ -71,8 +71,14 @@ io.on('connection', (socket) => {
 
 app.use(express.json())
 
+app.get('/' , (req  ,res)=>{
+  res.send({"status" : "Server Running"})
+})
+
+
 app.use('/api/auth', AuthRoute)
 app.use('/api/chat', ChatRoute)
+app.use("/ai" , GenAI)
 
 
 
