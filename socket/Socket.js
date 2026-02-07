@@ -8,10 +8,10 @@ export const initSocket = (server) => {
   });
   console.log("Socket Trigard")
   io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
+    console.log('Drone connected:', socket.id);
 
     socket.on('disconnect', () => {
-      console.log('User disconnected:', socket.id);
+      console.log('Drone disconnected:', socket.id);
     });
   });
 
